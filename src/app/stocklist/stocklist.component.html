@@ -1,0 +1,50 @@
+<div class="back">
+  <div class="contmajor" *ngIf='!listactive'>
+  <div class="dp">
+    <form #fForm="ngForm">
+      <div class="form-group">
+        <input type="text" name="stock" class="form-control" placeholder="STOCK NAME" id="stock" required [(ngModel)]='querydata.symbol'>
+      </div>
+      <div class="form-group">
+        <input type="date" name="date" [(ngModel)]='querydata.date' class="form-control" type="text" required placeholder="CHOOSE DATE" onfocus="(this.type='date')">
+      </div>
+      <button style="width:100%;background-color: #00A9EB;
+      border-color: #00A9EB;color: #FFF;" type="submit" (click)='getdetail()' class="btn btn-default sub" [disabled]='!fForm.valid' >Submit</button>
+    </form>
+  </div>
+
+  <div class="query">
+    <button class="btn btn-default" (click)='getStockList()'>CHECK STOCK LIST</button>
+    
+  </div>
+
+
+
+  <div class="row">
+    <div *ngIf='stockdata.length!=0'>
+      <p class="vol" >VOLUME: {{stockdata[0].volume}}</p>
+    </div>
+    <div *ngIf='stockdata.length!=0'>
+      <fusioncharts class="chart"
+        height="80%"
+        width="90%"
+        type="column3d"
+        dataFormat="json"
+        [dataSource]="chartdata" >
+      </fusioncharts>
+    </div>
+  </div>
+</div>
+
+
+  <div class="stockList" *ngIf='listactive'>
+    <button (click)='mode()' class="backbtn">Home</button>
+      <div class="stockList" *ngIf='stockList.length!=0'>
+        <a class="name" *ngFor='let stock of stockList'>
+          <div>
+            {{stock.symbol}}
+          </div>
+        </a>
+
+  </div>
+</div>  
